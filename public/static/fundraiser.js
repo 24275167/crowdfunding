@@ -21,7 +21,6 @@ const renderFundraisers = (data) => {
         list.innerHTML += itemContent(item)
     }
 }
-
 function getFundraisers() {
     fetch('/fundraisers')
         .then(response => response.json())
@@ -29,6 +28,43 @@ function getFundraisers() {
             renderFundraisers(data)
         })
 }
+
+
+// search.js
+function searchFundraisers() {
+    const organizer = document.getElementById('organizer').value;
+    const city = document.getElementById('city').value;
+    const category = document.getElementById('category').value;
+    if (!organizer && !city && !category) {
+        alert('Search content is empty');
+        return;
+    }
+    fetch(`http://localhost:3000/search?organizer=${organizer}&city=${city}&category=${category}`)
+        .then(response => response.json())
+        .then(data => {
+            renderFundraisers(data)
+        });
+}
+
+
+function renderCategories(data) {
+    const category = document.getElementById('category')
+    for (const item of data) {
+        const option = document.createElement('option')
+        option.value = item.CATEGORY_ID
+        option.textContent = item.NAME
+        category.appendChild(option)
+    }
+}
+function getCategories() {
+    fetch(`/categories`)
+        .then(response => response.json())
+        .then(data => {
+            renderCategories(data);
+        })
+}
+
+
 
 function details() {
     const urlParams = new URLSearchParams(window.location.search);
