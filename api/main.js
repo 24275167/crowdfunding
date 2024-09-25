@@ -59,7 +59,7 @@ app.get("/search", async (req, res) => {
         sql += sql ? 'AND' : 'WHERE' + ` CATEGORY_ID = ${category}`
     }
     try {
-        const [data] = await mysql.query(`SELECT * FROM FUNDRAISER` + sql);
+        const [data] = await mysql.query(`SELECT * FROM FUNDRAISER ` + sql);
         const processedData = await dataHandler(data);
         res.status(200).send(processedData);
     } catch (error) {
