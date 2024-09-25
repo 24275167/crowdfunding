@@ -8,7 +8,8 @@ const itemContent = (fundraiser) => `
         <p>Target Funding: $${fundraiser.TARGET_FUNDING}</p>
         <p>Current Funding: $${fundraiser.CURRENT_FUNDING}</p>
         <p>City: ${fundraiser.CITY}</p>
-        ${isDetails ? `<button class='donate'>donate</button>`:`<a href="/fundraiser.html?id=${fundraiser.FUNDRAISER_ID}">View Details</a>`}
+        ${fundraiser.FUNDRAISER_ID % 2 == 0 ? `<img src="./logo.jpg" alt="">` : `<img src="./banner.jpg" alt="">`}
+        ${isDetails ? `<button class='donate'>donate</button>` : `<a href="/fundraiser.html?id=${fundraiser.FUNDRAISER_ID}">View Details</a>`}
     </div>
 `;
 const renderFundraisers = (data) => {
