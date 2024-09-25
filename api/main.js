@@ -1,10 +1,14 @@
 import mysql from "./crowdfunding_db.js";
 import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const app = express();
-
+// 使用 import.meta.url 获取当前文件的路径，并解析成 __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 // 配置页面
-app.use(express.static('client'));
+app.use(express.static(path.join(__dirname, '../client')));
 // 列表
 app.get("/fundraisers", async (req, res) => {
     mysql.query('SELECT * FROM FUNDRAISER').then(data=>{
